@@ -6,20 +6,20 @@ import TaskCard           from '../components/TaskCard';
 import SearchBar          from '../components/SearchBar';
 import StatusFilter       from '../components/StatusFilter';
 import { STATUS }         from '../utils/constants';
+import './Home.css';
 
-const ITEMS_PER_PAGE = 9; 
+const ITEMS_PER_PAGE = 9;
 
 export default function Home() {
-  const { user }                        = useAuth();
+  const { user }                      = useAuth();
   const { tasks, loading, error,
           editTask, deleteTask,
-          updateStatus }                = useTasks();
+          updateStatus }              = useTasks();
 
-  const [search,      setSearch]      = useState('');
-  const [activeFilter,setActiveFilter]= useState('All');
-  const [page,        setPage]        = useState(1);
+  const [search,       setSearch]      = useState('');
+  const [activeFilter, setActiveFilter]= useState('All');
+  const [page,         setPage]        = useState(1);
 
-  
   const stats = useMemo(() => ({
     total:      tasks.length,
     inProgress: tasks.filter((t) => t.status === STATUS.IN_PROGRESS).length,
@@ -27,16 +27,11 @@ export default function Home() {
     hold:       tasks.filter((t) => t.status === STATUS.HOLD).length,
   }), [tasks]);
 
-  
   const filtered = useMemo(() => {
     let list = tasks;
-
-    
     if (activeFilter !== 'All') {
       list = list.filter((t) => t.status === activeFilter);
     }
-
-    
     if (search.trim()) {
       const q = search.toLowerCase();
       list = list.filter(
@@ -45,33 +40,29 @@ export default function Home() {
           t.assignedTo.toLowerCase().includes(q)
       );
     }
-
     return list;
   }, [tasks, activeFilter, search]);
 
-  
-  const totalPages   = Math.ceil(filtered.length / ITEMS_PER_PAGE);
-  const paginated    = filtered.slice((page - 1) * ITEMS_PER_PAGE, page * ITEMS_PER_PAGE);
+  const totalPages = Math.ceil(filtered.length / ITEMS_PER_PAGE);
+  const paginated  = filtered.slice((page - 1) * ITEMS_PER_PAGE, page * ITEMS_PER_PAGE);
 
-  
   function handleFilter(f) { setActiveFilter(f); setPage(1); }
   function handleSearch(q) { setSearch(q);        setPage(1); }
 
-  
   return (
     <main style={styles.page}>
 
-      {}
+      {/* ── Welcome Banner ── matches design: purple-left-border card with space below */}
       <div style={styles.banner}>
         <h2 style={styles.welcome}>
-          Welcome{' '}
+          Welcome,{' '}
           <span style={styles.username}>{user?.name}</span>
-          {' '}to Task Manager
+          {' '}👋
         </h2>
-        <p style={styles.subtitle}>Here's what's on your plate today.</p>
+        <p style={styles.welcomeSub}>to Task Manager</p>
       </div>
 
-      {}
+      {/* ── Stats row ── */}
       <div style={styles.statsGrid}>
         <StatCard label="TOTAL TASKS"  value={stats.total}      accent="#e8eaf0" />
         <StatCard label="IN PROGRESS"  value={stats.inProgress}  accent="#f5c518" />
@@ -79,28 +70,22 @@ export default function Home() {
         <StatCard label="ON HOLD"      value={stats.hold}        accent="#3b82f6" />
       </div>
 
-      {}
+      {/* ── Search + Filter ── */}
       <div style={styles.controls}>
         <SearchBar value={search} onChange={handleSearch} />
         <StatusFilter active={activeFilter} onChange={handleFilter} />
       </div>
 
-      {}
       <p style={styles.countLabel}>
         Showing {paginated.length} of {filtered.length} tasks
       </p>
 
-      {}
       {loading && <Loader />}
 
-      {}
       {error && (
-        <div style={styles.errorBox}>
-          ⚠️ {error}
-        </div>
+        <div style={styles.errorBox}>⚠️ {error}</div>
       )}
 
-      {}
       {!loading && !error && filtered.length === 0 && (
         <div style={styles.empty}>
           <p style={styles.emptyIcon}>📭</p>
@@ -108,9 +93,9 @@ export default function Home() {
         </div>
       )}
 
-      {}
+      {/* ── Task Grid — always 3 columns ── */}
       {!loading && !error && paginated.length > 0 && (
-        <div style={styles.grid}>
+        <div className="task-grid">
           {paginated.map((task) => (
             <TaskCard
               key={task.id}
@@ -123,7 +108,7 @@ export default function Home() {
         </div>
       )}
 
-      {}
+      {/* ── Pagination ── */}
       {totalPages > 1 && (
         <div style={styles.pagination}>
           <button
@@ -138,10 +123,7 @@ export default function Home() {
             <button
               key={p}
               onClick={() => setPage(p)}
-              style={{
-                ...styles.pageBtn,
-                ...(p === page ? styles.pageBtnActive : {}),
-              }}
+              style={{ ...styles.pageBtn, ...(p === page ? styles.pageBtnActive : {}) }}
             >
               {p}
             </button>
@@ -160,7 +142,6 @@ export default function Home() {
   );
 }
 
-
 function StatCard({ label, value, accent }) {
   return (
     <div style={{ ...styles.statCard, borderLeftColor: accent }}>
@@ -170,48 +151,55 @@ function StatCard({ label, value, accent }) {
   );
 }
 
-
 const styles = {
   page: {
-    maxWidth: '100%',
-    width:    '100%',
-    margin:   '0',
-    padding:  '40px 32px',
-    flex:      1,
+    width:   '100%',
+    padding: '32px 32px 48px',
+    flex:     1,
   },
+
+  /* ── Welcome Banner — purple left border, dark card, space below ── */
   banner: {
-    marginBottom: '32px',
+    background:   '#1a1d2e',
+    border:       '1px solid #2a2f45',
+    borderLeft:   '4px solid #6c63ff',
+    borderRadius: '12px',
+    padding:      '20px 28px',
+    marginBottom: '28px',
   },
   welcome: {
-    fontSize:   '24px',
-    fontWeight:  700,
-    color:      '#e8eaf0',
-    marginBottom:'6px',
+    fontSize:    '22px',
+    fontWeight:   700,
+    color:       '#e8eaf0',
+    marginBottom: '4px',
+    fontFamily:  "'Poppins', sans-serif",
+    lineHeight:   1.3,
   },
   username: {
     color: '#6c63ff',
   },
-  subtitle: {
-    fontSize: '14px',
+  welcomeSub: {
+    fontSize: '13px',
     color:    '#5a6280',
+    margin:    0,
   },
 
-  
+  /* ── Stats ── */
   statsGrid: {
     display:             'grid',
-    gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))',
+    gridTemplateColumns: 'repeat(4, 1fr)',
     gap:                 '16px',
-    marginBottom:        '32px',
+    marginBottom:        '28px',
   },
   statCard: {
-    background:  '#1c2030',
-    border:      '1px solid #2a2f45',
-    borderLeft:  '3px solid',
-    borderRadius:'12px',
-    padding:     '20px 24px',
-    display:     'flex',
-    flexDirection:'column',
-    gap:         '6px',
+    background:    '#1c2030',
+    border:        '1px solid #2a2f45',
+    borderLeft:    '3px solid',
+    borderRadius:  '12px',
+    padding:       '20px 24px',
+    display:       'flex',
+    flexDirection: 'column',
+    gap:           '6px',
   },
   statValue: {
     fontSize:   '32px',
@@ -228,13 +216,12 @@ const styles = {
     textTransform: 'uppercase',
   },
 
-  
+  /* ── Controls ── */
   controls: {
-    display:     'flex',
-    gap:         '12px',
-    marginBottom:'16px',
-    flexWrap:    'wrap',
-    alignItems:  'center',
+    display:      'flex',
+    gap:          '12px',
+    marginBottom: '12px',
+    alignItems:   'center',
   },
   countLabel: {
     fontSize:     '13px',
@@ -242,14 +229,7 @@ const styles = {
     marginBottom: '20px',
   },
 
-  
-  grid: {
-    display:             'grid',
-    gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
-    gap:                 '16px',
-  },
-
-  
+  /* ── Pagination ── */
   pagination: {
     display:        'flex',
     justifyContent: 'center',
@@ -279,7 +259,6 @@ const styles = {
     cursor:  'not-allowed',
   },
 
-  
   errorBox: {
     background:   'rgba(239,68,68,0.1)',
     border:       '1px solid rgba(239,68,68,0.3)',

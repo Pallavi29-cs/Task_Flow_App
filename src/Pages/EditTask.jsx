@@ -165,9 +165,9 @@ export default function EditTask() {
 
 const styles = {
   page: {
-    maxWidth: '100%',
+    maxWidth: '980px',
     width:    '100%',
-    margin:   '0',
+    margin:   '0 auto',
     padding:  '40px 32px',
     flex:      1,
   },

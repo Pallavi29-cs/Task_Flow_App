@@ -1,0 +1,212 @@
+/* components/TaskCard.css */
+
+.task-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 18px 18px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  transition: border-color 0.2s, transform 0.15s;
+}
+
+.task-card:hover {
+  border-color: rgba(99, 102, 241, 0.35);
+  transform: translateY(-2px);
+}
+
+.task-card--editing {
+  border-color: rgba(99, 102, 241, 0.5);
+}
+
+.task-id {
+  font-family: var(--font-display);
+  font-size: 0.7rem;
+  color: var(--text-muted);
+}
+
+.task-title {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  line-height: 1.45;
+}
+
+.task-meta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.assigned-to {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.8rem;
+  color: var(--accent-purple);
+}
+
+.assigned-icon { font-size: 0.72rem; }
+
+.unassigned {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+/* View mode action buttons */
+.task-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 2px;
+}
+
+.btn-edit {
+  padding: 6px 14px;
+  border-radius: 6px;
+  background: var(--bg-input);
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+  font-size: 0.8rem;
+  transition: all 0.2s;
+}
+
+.btn-edit:hover {
+  border-color: var(--accent-purple);
+  color: var(--accent-purple);
+}
+
+.btn-delete {
+  padding: 6px 14px;
+  border-radius: 6px;
+  background: rgba(239, 68, 68, 0.12);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  color: var(--accent-red);
+  font-size: 0.8rem;
+  transition: all 0.2s;
+}
+
+.btn-delete:hover { background: rgba(239, 68, 68, 0.22); }
+
+/* ─── Edit Form (matches design: compact inline) ─── */
+
+.task-edit-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Two fields side by side: Status + Assigned To */
+.edit-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.edit-field {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.edit-label {
+  font-size: 0.66rem;
+  font-weight: 600;
+  letter-spacing: 0.07em;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+/* Shared input style */
+.edit-input {
+  padding: 8px 10px;
+  border-radius: 6px;
+  background: var(--bg-input);
+  border: 1px solid var(--border);
+  color: var(--text-primary);
+  font-size: 0.84rem;
+  transition: border-color 0.2s;
+  width: 100%;
+}
+
+.edit-input:focus { border-color: var(--accent-purple); }
+
+/* Select with custom arrow */
+.select-wrap {
+  position: relative;
+}
+
+.edit-select {
+  appearance: none;
+  -webkit-appearance: none;
+  padding: 8px 28px 8px 10px;
+  border-radius: 6px;
+  background: var(--bg-input);
+  border: 1px solid var(--border);
+  color: var(--text-primary);
+  font-size: 0.84rem;
+  width: 100%;
+  cursor: pointer;
+  transition: border-color 0.2s;
+}
+
+.edit-select:focus { border-color: var(--accent-purple); }
+.edit-select option { background: var(--bg-card); }
+
+.select-arrow {
+  position: absolute;
+  right: 9px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 0.6rem;
+  color: var(--text-muted);
+  pointer-events: none;
+}
+
+.input-error { border-color: var(--accent-red) !important; }
+
+.err {
+  font-size: 0.7rem;
+  color: var(--accent-red);
+}
+
+/* Edit action buttons */
+.edit-actions {
+  display: flex;
+  gap: 8px;
+  padding-top: 2px;
+}
+
+.btn-save {
+  padding: 7px 16px;
+  border-radius: 6px;
+  background: var(--accent-purple);
+  border: none;
+  color: #fff;
+  font-size: 0.82rem;
+  font-weight: 600;
+  transition: background 0.2s;
+}
+
+.btn-save:hover { background: var(--accent-purple-hover); }
+
+.btn-cancel-sm {
+  padding: 7px 14px;
+  border-radius: 6px;
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+  font-size: 0.82rem;
+  transition: all 0.2s;
+}
+
+.btn-cancel-sm:hover {
+  border-color: var(--accent-red);
+  color: var(--accent-red);
+}
+
+@media (max-width: 480px) {
+  .edit-row { grid-template-columns: 1fr; }
+}

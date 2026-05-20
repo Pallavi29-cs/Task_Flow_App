@@ -1,0 +1,189 @@
+/* ============================================================
+   LOGIN PAGE  –  Fixed / static layout, always centred
+   ============================================================ */
+
+.login-page {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #08090f;
+  overflow: hidden;
+}
+
+/* Card is ALWAYS 480px wide – never shrinks on any screen */
+.login-card {
+  width: 480px;          /* fixed, never changes */
+  padding: 40px 40px 32px;
+  border-radius: 20px;
+  background: rgba(13, 16, 28, 0.96);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 30px 90px rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(20px);
+  position: relative;
+  z-index: 2;
+  flex-shrink: 0;        /* prevents any flex squishing */
+}
+
+.login-logo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  text-align: center;
+  margin-bottom: 28px;
+}
+
+.login-logo-img {
+  width: 40px;
+  height: auto;
+  display: block;
+}
+
+.login-title {
+  font-family: 'Poppins', sans-serif;
+  font-size: 28px;
+  font-weight: 800;
+  color: #e8eaf0;
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+
+.login-subtitle {
+  font-size: 13px;
+  color: #8b94ae;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+}
+
+.field-group {
+  width: 100%;
+}
+
+.field-label {
+  display: block;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: #5a6280;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.input {
+  width: 100%;
+  padding: 14px 18px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.04);
+  color: #eef2ff;
+  font-size: 14px;
+  outline: none;
+  font-family: 'Poppins', sans-serif;
+  transition: border-color 0.2s ease;
+  box-sizing: border-box;
+}
+
+.input:focus {
+  border-color: rgba(124, 107, 255, 0.75);
+  box-shadow: 0 0 0 3px rgba(108, 99, 255, 0.15);
+}
+
+.input-error {
+  border-color: #ef4444 !important;
+}
+
+.input-error-text {
+  display: block;
+  margin-top: 6px;
+  font-size: 12px;
+  color: #f87171;
+}
+
+.pw-wrap {
+  position: relative;
+}
+
+.password-input {
+  padding-right: 44px;
+}
+
+.eye-btn {
+  position: absolute;
+  top: 50%;
+  right: 14px;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  padding: 4px;
+  color: #9aa3c0;
+}
+
+.submit-btn {
+  width: 100%;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  padding: 16px 22px;
+  border-radius: 12px;
+  border: none;
+  background: linear-gradient(135deg, #7c6bff 0%, #5d52ff 100%);
+  color: #fff;
+  font-size: 16px;
+  font-weight: 800;
+  font-family: 'Poppins', sans-serif;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  transition: transform 0.18s, box-shadow 0.18s;
+  box-shadow: 0 12px 32px rgba(92, 69, 255, 0.3);
+}
+
+.submit-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 20px 48px rgba(92, 69, 255, 0.35);
+}
+
+.hint {
+  margin: 0;
+  font-size: 12px;
+  color: #7b86a1;
+  text-align: center;
+  line-height: 1.6;
+}
+
+/* Background blobs */
+.blob {
+  position: absolute;
+  pointer-events: none;
+  filter: blur(34px);
+  opacity: 0.95;
+  z-index: 0;
+}
+.blob-left {
+  left: -220px;
+  bottom: -120px;
+  width: 520px;
+  height: 520px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, rgba(99,102,241,0.16) 0%, transparent 60%);
+}
+.blob-right {
+  right: -140px;
+  top: 40px;
+  width: 460px;
+  height: 460px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 70% 20%, rgba(59,130,246,0.12) 0%, transparent 60%);
+}
