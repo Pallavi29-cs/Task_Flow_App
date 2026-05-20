@@ -1,0 +1,17 @@
+# Setup Instructions
+
+1. Clone the Repository
+git clone https://github.com/Pallavi29-cs/Task_Flow_App.git
+
+2. Open the Project Folder
+cd Task_Flow_App
+
+3. Install Dependencies
+npm install
+
+4. Run the Application
+npm run dev
+
+5. Open in Browser
+http://localhost:5173
+
