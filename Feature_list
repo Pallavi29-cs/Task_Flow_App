@@ -1,0 +1,16 @@
+##FEATURE LIST
+
+1. User Login Authentication
+2. Add New Tasks
+3. Edit Existing Tasks
+4. Delete Tasks
+5. Update Task Status
+6. Search Tasks
+7. Filter Tasks by Status
+8. Pagination Support
+9. Local Storage Data Persistence
+10. Responsive User Interface
+11. Task ID Generation
+12. Real-Time Task Updates
+13. Dashboard Statistics Display
+14. Clean Dark Theme UI
