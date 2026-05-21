@@ -18,33 +18,20 @@ export function useTasks() {
 
       const cached = localStorage.getItem(STORAGE_KEYS.TASKS);
 
-      // LOAD FROM LOCAL STORAGE
       if (cached) {
         const parsed = JSON.parse(cached);
-
-        // SORT TASKS BY ID ASCENDING
-        const sortedParsed = parsed.sort(
-          (a, b) => a.id - b.id
-        );
-
-        setTasks(sortedParsed);
+        setTasks(parsed);
         setLoading(false);
         return;
       }
 
-      // FETCH INITIAL TASKS
       const data = await fetchTasks();
 
-      // SORT TASKS BY ID ASCENDING
-      const sortedData = data.sort(
-        (a, b) => a.id - b.id
-      );
-
-      setTasks(sortedData);
+      setTasks(data);
 
       localStorage.setItem(
         STORAGE_KEYS.TASKS,
-        JSON.stringify(sortedData)
+        JSON.stringify(data)
       );
 
     } catch (err) {
@@ -58,16 +45,11 @@ export function useTasks() {
   }
 
   function persist(updated) {
-    // KEEP TASKS SORTED
-    const sortedUpdated = updated.sort(
-      (a, b) => a.id - b.id
-    );
-
-    setTasks(sortedUpdated);
+    setTasks(updated);
 
     localStorage.setItem(
       STORAGE_KEYS.TASKS,
-      JSON.stringify(sortedUpdated)
+      JSON.stringify(updated)
     );
   }
 
@@ -87,8 +69,8 @@ export function useTasks() {
       assignedTo: taskData.assignedTo.trim(),
     };
 
-    // ADD NEW TASK AT END
-    persist([...tasks, newTask]);
+    // NEW TASK ADDED AT FRONT
+    persist([newTask, ...tasks]);
 
     return newTask;
   }
